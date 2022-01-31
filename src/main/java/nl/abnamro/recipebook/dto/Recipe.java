@@ -22,6 +22,7 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique = true)
     private String name;
 
     @JsonFormat(pattern="dd‐MM‐yyyy HH:mm")

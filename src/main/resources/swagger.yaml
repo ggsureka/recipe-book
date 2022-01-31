@@ -16,7 +16,7 @@ paths:
             application/json:
               schema:
                 type: object
-                properties: {}
+                properties: { }
               examples:
                 "0":
                   value: '[{"id":1,"name":"pizza-margherita","creationDate":"31-01-2022 18:06","vegetarian":"true","noOfPersons":3,"ingredients":[{"ingredientId":2,"name":"flour","amount":1.0},{"ingredientId":3,"name":"salt","amount":0.5}],"instructions":"less spicy"},{"id":4,"name":"fries","creationDate":"31-01-2022 19:01","vegetarian":"true","noOfPersons":3,"ingredients":[{"ingredientId":5,"name":"potato","amount":1.0},{"ingredientId":6,"name":"salt","amount":0.5}],"instructions":"Fry the potato fingers"}]'
@@ -34,7 +34,7 @@ paths:
             text/plain;charset=UTF-8:
               schema:
                 type: string
-              examples: {}
+              examples: { }
       servers:
         - url: http://localhost:8080
     servers:
@@ -79,6 +79,81 @@ paths:
         - url: http://localhost:8080
     servers:
       - url: http://localhost:8080
+  /api/updateRecipe:
+    put:
+      description: Update a recipe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api_updateRecipe_body'
+            examples:
+              "0":
+                value: |2-
+
+                  {
+                  "instructions" : "Fry the potato fingers",
+                  "vegetarian" : "yes",
+                  "name" : "pizza",
+
+                  "noOfPersons" : 3,
+                  "ingredients" :[ {
+                      "name" : "tomato sauce",
+                      "amount" : "1.0"
+                  },{
+                       "name" : "salt",
+                      "amount" : "0.500"
+                  }]
+                  }
+      responses:
+        "200":
+          description: Updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+              examples:
+                "0":
+                  value: '{"id":1,"name":"pizza","creationDate":"31-01-2022 22:23","vegetarian":"yes","noOfPersons":3,"ingredients":[{"ingredientId":7,"name":"tomato sauce","amount":1.0},{"ingredientId":8,"name":"salt","amount":0.5}],"instructions":"Fry the potato fingers"}'
+      servers:
+        - url: http://localhost:8080
+    servers:
+      - url: http://localhost:8080
+  /api/retrieveRecipes:
+      get:
+        description: Retrieves recipe based on name/vegetarian/noOfPersons
+        parameters:
+          - name: name
+            in: query
+            required: false
+            style: form
+            explode: true
+            schema:
+              type: string
+            example: pizza
+          - name: vegetarian
+            in: query
+            required: false
+            style: form
+            explode: true
+            schema:
+              type: string
+        example: "yes"
+    responses:
+      "200":
+        description: Retrieved recipe based on given attribute
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              "0":
+                value: '[{"id":1,"name":"pizza","creationDate":"31-01-2022 22:23","vegetarian":"yes","noOfPersons":3,"ingredients":[{"ingredientId":7,"name":"tomato sauce","amount":1.0},{"ingredientId":8,"name":"salt","amount":0.5}],"instructions":"Fry the potato fingers"}]'
+    servers:
+      - url: http://localhost:8080
+  servers:
+    - url: http://localhost:8080
 components:
   schemas:
     api_createRecipe_body:

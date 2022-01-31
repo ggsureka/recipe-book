@@ -1,0 +1,137 @@
+openapi: 3.0.1
+info:
+  title: RecipeBook
+  description: Application which allows user to manage recipe
+  version: 1.0.0-oas3
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/allRecipes:
+    get:
+      description: Get all recipes
+      responses:
+        "200":
+          description: Retrieved all recipes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                "0":
+                  value: '[{"id":1,"name":"pizza-margherita","creationDate":"31-01-2022 18:06","vegetarian":"true","noOfPersons":3,"ingredients":[{"ingredientId":2,"name":"flour","amount":1.0},{"ingredientId":3,"name":"salt","amount":0.5}],"instructions":"less spicy"},{"id":4,"name":"fries","creationDate":"31-01-2022 19:01","vegetarian":"true","noOfPersons":3,"ingredients":[{"ingredientId":5,"name":"potato","amount":1.0},{"ingredientId":6,"name":"salt","amount":0.5}],"instructions":"Fry the potato fingers"}]'
+      servers:
+        - url: http://localhost:8080
+    servers:
+      - url: http://localhost:8080
+  /api/deleteRecipe/fries:
+    delete:
+      description: Delete a given recipe
+      responses:
+        "200":
+          description: Recipe is deleted
+          content:
+            text/plain;charset=UTF-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: http://localhost:8080
+    servers:
+      - url: http://localhost:8080
+  /api/createRecipe:
+    post:
+      description: Create the given recipe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api_createRecipe_body'
+            examples:
+              "0":
+                value: |2-
+
+                  {
+                  "instructions" : "Fry the potato fingers",
+                  "vegetarian" : true,
+                  "name" : "fries",
+
+                  "noOfPersons" : 3,
+                  "ingredients" :[ {
+                      "name" : "potato",
+                      "amount" : "1.0"
+                  },{
+                       "name" : "salt",
+                      "amount" : "0.500"
+                  }]
+                  }
+      responses:
+        "201":
+          description: Recipe creation successfull
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+              examples:
+                "0":
+                  value: '{"id":4,"name":"fries","creationDate":"31-01-2022 19:01","vegetarian":"true","noOfPersons":3,"ingredients":[{"ingredientId":5,"name":"potato","amount":1.0},{"ingredientId":6,"name":"salt","amount":0.5}],"instructions":"Fry the potato fingers"}'
+      servers:
+        - url: http://localhost:8080
+    servers:
+      - url: http://localhost:8080
+components:
+  schemas:
+    api_createRecipe_body:
+      type: object
+      properties:
+        instructions:
+          type: string
+        vegetarian:
+          type: boolean
+        name:
+          type: string
+        ingredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/apicreateRecipe_ingredients'
+        noOfPersons:
+          type: integer
+    inline_response_201_ingredients:
+      type: object
+      properties:
+        ingredientId:
+          type: integer
+        amount:
+          type: number
+        name:
+          type: string
+    inline_response_201:
+      type: object
+      properties:
+        instructions:
+          type: string
+        name:
+          type: string
+        vegetarian:
+          type: string
+        ingredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_201_ingredients'
+        id:
+          type: integer
+        creationDate:
+          type: string
+        noOfPersons:
+          type: integer
+    apicreateRecipe_ingredients:
+      type: object
+      properties:
+        amount:
+          type: string
+        name:
+          type: string
+  securitySchemes:
+    basic:
+      type: http
+      scheme: basic

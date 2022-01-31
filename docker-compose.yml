@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  mysql:
+    image: ivonet/mysql
+    ports:
+    - 3306:3306
+    environment:
+      MYSQL_DATABASE: recipeBook
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+    - ./mysql/setup:/docker-entrypoint-initdb.d
+
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    ports:
+    - "8888:80"
+    links:
+    - mysql
+    environment:
+    - MYSQL_USERNAME=user
+    - MYSQL_ROOT_PASSWORD=root
+    - PMA_HOST=mysql
+    depends_on:
+    - mysql

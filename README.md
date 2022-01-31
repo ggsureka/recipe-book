@@ -40,10 +40,16 @@
 - swagger.yaml [src/main/resources/swagger.yaml](swagger)
 
 ## Build and run application
+Pre-requisite - install docker daemon
+- Run command to mysql docker container:
+  docker-compose up
 
+This run a mysql container and by startup loads data present in mysql/setup/data.sql
+
+- Then build and  start application using command:
 ./mvnw install && ./mvnw spring-boot:run
 
-##CURL commands to test api's in command line
+## CURL commands to test api's in command line
 
 - POST
   curl --user "user:wordPass" -d '{"name":"fries", "vegetarian" : "yes"}' -H 'Content-Type: application/json' http://localhost:8080/api/createRecipe  

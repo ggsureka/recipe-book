@@ -37,11 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().defaultSuccessUrl("/dashboard.html", true)
                 .and()
-                //.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .csrf().disable()
-              // .and()
-                .headers().frameOptions().sameOrigin()
-        ;
+                .headers().frameOptions().sameOrigin();
 
     }
 

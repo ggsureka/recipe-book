@@ -15,10 +15,12 @@
     - Amount : amount required for recipe
     
 
-##REST API's
+## REST API's
 - create recipe data: [http://localhost:8080/api/createRecipe](http://localhost:8080/api/createRecipe)
 - retrieve all recipes: [http://localhost:8080/api/allRecipes](http://localhost:8080/api/allRecipes)
 - Update a given recipe: [http://localhost:8080/api/allRecipes](http://localhost:8080/api/updateRecipe)
+- Retrieve recipe based on name, vegetarian or noOfPersons: [http://localhost:8080/api/retrieveRecipes?name=&vegetarian=&noOfPersons=](http://localhost:8080/api/retrieveRecipes?name=&vegetarian=&noOfPersons=)
+  All are optional fields
 - delete recipe given by name: [http://localhost:8080/api/deleteRecipe/{name}](http://localhost:8080/api/deleteRecipe/{name})
 
 ## Test & Integration
@@ -26,7 +28,7 @@
 - With MockMvc
 
 
-##Spring security enabled
+## Spring security enabled
 - All api's require authentication with following credentials
  username: user
  password: wordPass

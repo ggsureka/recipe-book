@@ -43,7 +43,7 @@ public class RecipeService {
     }
 
     public List<Recipe> retrieveRecipes(Map<String, String> attributes) {
-        boolean vegetarian = Boolean.parseBoolean(attributes.getOrDefault("vegetarian", "false"));
+        String vegetarian = attributes.get("vegetarian");
         int noOfPersons = Integer.parseInt(attributes.getOrDefault("noOfPersons","0"));
         String name = attributes.get("name");
         return recipeRepository.findByAttributes(vegetarian, noOfPersons, name );

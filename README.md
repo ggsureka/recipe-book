@@ -1,10 +1,12 @@
 # Application: RecipeBook
 - Spring boot application
+- [http://locahost:8080/dashboard.html](http://locahost:8080/dashboard.html)
+  page which has a link to render all the available recipes
 
 
 ## Entity
 - Recipe: Store the details of a recipe
-    - Name : name of recipe
+    - Name : name of recipe (unique)
     - vegetarian : indicator to specify if vegetarian or not
     - noOfPersons : indicator displaying the number of people the dish is suitable for
     - creationDate : Date and time  of creation
@@ -34,7 +36,7 @@
  password: wordPass
 
 ## Database
-- Increement1: H2 
+- Increment1: H2 
 
 ## API documentation
 - swagger.yaml [src/main/resources/swagger.yaml](swagger)
@@ -43,7 +45,7 @@
 
 ./mvnw install && ./mvnw spring-boot:run
 
-##CURL commands to test api's in command line
+## CURL commands to test api's in command line
 
 - POST
   curl --user "user:wordPass" -d '{"name":"fries", "vegetarian" : "yes"}' -H 'Content-Type: application/json' http://localhost:8080/api/createRecipe  
